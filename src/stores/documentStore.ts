@@ -24,15 +24,10 @@ export const useDocumentStore = defineStore('document', () => {
     error.value = null
 
     try {
-      console.log('Загружаем документы...')
       const documents = await apiService.getAllDocuments()
-      console.log('Получены документы:', documents)
       allDocuments.value = documents
       filteredDocuments.value = structuredClone(documents)
-      console.log('allDocuments:', allDocuments.value.length)
-      console.log('filteredDocuments:', filteredDocuments.value.length)
     } catch (err) {
-      console.error('Ошибка загрузки:', err)
       error.value = err instanceof Error ? err.message : 'Ошибка при загрузке документов'
       allDocuments.value = []
       filteredDocuments.value = []
@@ -56,7 +51,6 @@ export const useDocumentStore = defineStore('document', () => {
       const documents = await apiService.searchDocuments(query)
       filteredDocuments.value = documents
     } catch (err) {
-      console.error('Ошибка поиска:', err)
       error.value = err instanceof Error ? err.message : 'Ошибка при поиске документов'
       filteredDocuments.value = []
     } finally {
